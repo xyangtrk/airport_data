@@ -1,20 +1,35 @@
 package main
 
 import (
-  "log"
+	"log"
 
-  "github.com/xyangtrk/airport_data/pkg/jsonparser"
- )
-
+	"github.com/xyangtrk/airport_data/pkg/datareader"
+	"github.com/xyangtrk/airport_data/pkg/redisclient"
+)
 
 func main() {
-  inputFilePath := "data/originaldata.json"
-  outputFilePath := "data/outputdata.json"
+	// inputFilePath := "data/originaldata.json"
+	outputFilePath := "data/outputdata.json"
 
+	// outputFilePath := "data/outputdata-test.json"
 
-  err := jsonparser.ParseAndBuildOutputData(inputFilePath, outputFilePath)
+	// do not need to run this if we have the outputdata.json already
+	// err := jsonparser.ParseAndBuildOutputData(inputFilePath, outputFilePath)
+	//
+	// if err != nil {
+	//   log.Fatalf("Error in main: %v", err)
+	// }
 
-  if err != nil {
-    log.Fatalf("Error in main: %v", err)
-  }
+	outputMap, err := datareader.ReadOutputData(outputFilePath)
+	if err != nil {
+		log.Fatalf("Error in main while reading output data: %v", err)
+	}
+
+	// Initialize Redis client
+	rdb := redisclient.InitializeRedisClient()
+
+	err = redisclient.InsertIntoRedis(outputMap, rdb)
+	if err != nil {
+		log.Fatalf("Error in main while inserting data into Redis: %v", err)
+	}
 }

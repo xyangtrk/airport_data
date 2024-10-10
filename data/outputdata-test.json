@@ -1,0 +1,20 @@
+{
+  "00M": {
+    "utcOffset": -5,
+    "lat": 31.987639,
+    "lon": -89.245056,
+    "timeZoneRegionName": "America/Chicago"
+  },
+  "00N": {
+    "utcOffset": -4,
+    "lat": 39.531694,
+    "lon": -75.201861,
+    "timeZoneRegionName": "America/New_York"
+  },
+  "00R": {
+    "utcOffset": -5,
+    "lat": 30.708611,
+    "lon": -95.029278,
+    "timeZoneRegionName": "America/Chicago"
+  }
+}
