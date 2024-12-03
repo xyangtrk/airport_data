@@ -4,12 +4,12 @@ import (
 	"log"
 
 	"github.com/xyangtrk/airport_data/pkg/datareader"
-	"github.com/xyangtrk/airport_data/pkg/redisclient"
+	// "github.com/xyangtrk/airport_data/pkg/redisclient"
 )
 
 func main() {
 	// inputFilePath := "data/originaldata.json"
-	outputFilePath := "data/outputdata.json"
+	// outputFilePath := "data/outputdata.json"
 
 	// outputFilePath := "data/outputdata-test.json"
 
@@ -20,16 +20,24 @@ func main() {
 	//   log.Fatalf("Error in main: %v", err)
 	// }
 
-	outputMap, err := datareader.ReadOutputData(outputFilePath)
-	if err != nil {
-		log.Fatalf("Error in main while reading output data: %v", err)
-	}
+	// outputMap, err := datareader.ReadOutputData(outputFilePath)
+	// if err != nil {
+	// 	log.Fatalf("Error in main while reading output data: %v", err)
+	// }
 
-	// Initialize Redis client
-	rdb := redisclient.InitializeRedisClient()
+	// // Initialize Redis client
+	// rdb := redisclient.InitializeRedisClient()
 
-	err = redisclient.InsertIntoRedis(outputMap, rdb)
-	if err != nil {
-		log.Fatalf("Error in main while inserting data into Redis: %v", err)
+	// err = redisclient.InsertIntoRedis(outputMap, rdb)
+	// if err != nil {
+	// 	log.Fatalf("Error in main while inserting data into Redis: %v", err)
+	// }
+
+	// airline codes.
+	inputFilePath := "data/original-airlines-code.json"
+	outputFilePath := "data/output-airlines-code.json"
+
+	if err := datareader.ParseAndBuildOutputAirlinesCodeData(inputFilePath, outputFilePath); err != nil {
+		log.Fatalf("Error processing airlines code data: %v", err)
 	}
 }
